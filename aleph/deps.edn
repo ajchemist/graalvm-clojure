@@ -1,0 +1,36 @@
+{
+ :paths ["src"]
+ :deps
+ {
+  aleph/aleph                                 {:mvn/version "0.4.7-alpha5"}
+  org.clojure/clojure                         {:mvn/version "1.10.2-alpha1"}
+  io.netty/netty-codec-http                   {:mvn/version "4.1.39.Final"}
+  io.netty/netty-codec                        {:mvn/version "4.1.39.Final"}
+  io.netty/netty-handler-proxy                {:mvn/version "4.1.39.Final"}
+  io.netty/netty-codec-socks                  {:mvn/version "4.1.39.Final"}
+  io.netty/netty-handler                      {:mvn/version "4.1.39.Final"}
+  io.netty/netty-resolver-dns                 {:mvn/version "4.1.39.Final"}
+  io.netty/netty-codec-dns                    {:mvn/version "4.1.39.Final"}
+  io.netty/netty-resolver                     {:mvn/version "4.1.39.Final"}
+  io.netty/netty-transport-native-epoll       {:mvn/version "4.1.39.Final"}
+  io.netty/netty-common                       {:mvn/version "4.1.39.Final"}
+  io.netty/netty-transport-native-unix-common {:mvn/version "4.1.39.Final"}
+  io.netty/netty-transport                    {:mvn/version "4.1.39.Final"}
+  io.netty/netty-buffer                       {:mvn/version "4.1.39.Final"}
+  ;; io.netty/netty-all  {:mvn/version "4.1.39.Final"}
+  }
+ :aliases
+ {
+  :aot
+  {:jvm-opts ["-Dclojure.compiler.direct-linking=true"]}
+
+
+  :uberjar/paths
+  {:extra-paths ["classes"]}
+
+
+  :uberjar
+  {:extra-deps {uberdeps/uberdeps {:mvn/version "1.0.2"}}
+   :main-opts  ["-m" "uberdeps.uberjar"]}
+  }
+ }

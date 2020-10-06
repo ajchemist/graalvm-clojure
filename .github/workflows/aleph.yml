@@ -1,0 +1,73 @@
+name: Build native-image for aleph
+
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: "!(contains(github.event.head_commit.message, 'ci skip') || contains(github.event.head_commit.message, 'skip ci'))"
+    steps:
+      - uses: actions/checkout@v2
+
+
+      - name: Cache local maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/deps.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+
+      - name: Cache gitlibs
+        uses: actions/cache@v2
+        with:
+          path: ~/.gitlibs
+          key: ${{ runner.os }}-gitlibs-${{ hashFiles('**/deps.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-gitlibs-
+
+
+      - name: Set up graalvm
+        uses: DeLaGuardo/setup-graalvm@3
+        with:
+          graalvm-version: '20.2.0.java11'
+
+
+      - name: Install native-image
+        run: gu install native-image
+
+
+      - name: Set up clojure-cli
+        uses: DeLaGuardo/setup-clojure@2.0
+        with:
+          tools-deps: '1.10.1.697'
+
+
+      - name: Build native-image
+        run: ./aleph/build.sh
+
+
+      - name: Upload native-image
+        uses: actions/upload-artifact@v2
+        with:
+          name: aleph.app
+          path: aleph/aleph.app
+
+
+  # test:
+  #   runs-on: ubuntu-latest
+  #   needs: [ build ]
+  #   steps:
+  #     - name: Download native-image
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #         name: aleph.app
+  #     - run: |
+  #         chmod +x ./aleph.app
