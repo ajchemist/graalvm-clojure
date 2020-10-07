@@ -18,11 +18,19 @@
   io.netty/netty-transport                    {:mvn/version "4.1.39.Final"}
   io.netty/netty-buffer                       {:mvn/version "4.1.39.Final"}
   ;; io.netty/netty-all  {:mvn/version "4.1.39.Final"}
+
+
+  ;; default-deps
+  org.clojure/core.async {:mvn/version "1.3.610"}
   }
  :aliases
  {
   :aot
   {:jvm-opts ["-Dclojure.compiler.direct-linking=true"]}
+
+
+  :paths/classes
+  {:extra-paths ["classes"]}
 
 
   :uberjar/paths
@@ -32,5 +40,41 @@
   :uberjar
   {:extra-deps {uberdeps/uberdeps {:mvn/version "1.0.2"}}
    :main-opts  ["-m" "uberdeps.uberjar"]}
+
+
+  :native-image
+  {:extra-deps
+   {clj.native-image/clj.native-image
+    {:git/url "https://github.com/ajchemist/clj.native-image.git"
+     :sha     "296bd85c45b14df8dfe0e0fef0a368b44e1f9e2f"}}
+   :main-opts ["-m" "clj.native-image" "simple.main"
+               "--report-unsupported-elements-at-runtime"
+               "--no-fallback"
+               "--initialize-at-build-time"
+               "-H:+TraceClassInitialization"
+               "--initialize-at-run-time=io.netty.channel.epoll.EpollEventArray,io.netty.channel.epoll.EpollEventLoop,io.netty.channel.epoll.Native,io.netty.channel.unix.Errors,io.netty.channel.unix.FileDescriptor,io.netty.channel.unix.IovArray,io.netty.channel.unix.Socket,io.netty.channel.unix.Limits,io.netty.util.internal.logging.Log4JLogger"
+               "--allow-incomplete-classpath"
+               "-H:Name=aleph.app"
+               "-H:+ReportExceptionStackTraces"]}
+
+
+  :native-image-x
+  {:extra-deps
+   {clj.native-image/clj.native-image
+    {:git/url "https://github.com/ajchemist/clj.native-image.git"
+     :sha     "afcf1298c4ca470f6dba0e65eee495b0e3d339ee"}}
+   :exec-fn   clj.native-image/build-x
+   :exec-args {:aliases [:paths/classes]
+               :main    "simple.main"
+               :args    [
+                         "--report-unsupported-elements-at-runtime"
+                         "--no-fallback"
+                         "--initialize-at-build-time"
+                         "-H:+TraceClassInitialization"
+                         "--initialize-at-run-time=io.netty.channel.epoll.EpollEventArray,io.netty.channel.epoll.EpollEventLoop,io.netty.channel.epoll.Native,io.netty.channel.unix.Errors,io.netty.channel.unix.FileDescriptor,io.netty.channel.unix.IovArray,io.netty.channel.unix.Socket,io.netty.channel.unix.Limits,io.netty.util.internal.logging.Log4JLogger"
+                         "--allow-incomplete-classpath"
+                         "-H:Name=aleph.app"
+                         "-H:+ReportExceptionStackTraces"
+                         ]}}
   }
  }
