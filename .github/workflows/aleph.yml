@@ -86,20 +86,17 @@ jobs:
             ${{ runner.os }}-gitlibs-
 
 
-      - name: Set up graalvm
-        uses: DeLaGuardo/setup-graalvm@3
+      - uses: ayltai/setup-graalvm@v1
         with:
-          graalvm-version: '20.2.0.java11'
-
-
-      - name: Install native-image
-        run: gu install native-image
+          java-version: 11
+          graalvm-version: 20.2.0
+          native-image: true
 
 
       - name: Set up clojure-cli
         uses: DeLaGuardo/setup-clojure@master
         with:
-          cli: '1.10.1.697'
+          cli: '1.10.1.716'
 
 
       - name: Build native-image
