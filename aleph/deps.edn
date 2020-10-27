@@ -2,21 +2,21 @@
  :paths ["src"]
  :deps
  {
-  aleph/aleph                                 {:mvn/version "0.4.7-alpha5"}
-  org.clojure/clojure                         {:mvn/version "1.10.2-alpha1"}
-  io.netty/netty-codec-http                   {:mvn/version "4.1.39.Final"}
-  io.netty/netty-codec                        {:mvn/version "4.1.39.Final"}
-  io.netty/netty-handler-proxy                {:mvn/version "4.1.39.Final"}
-  io.netty/netty-codec-socks                  {:mvn/version "4.1.39.Final"}
-  io.netty/netty-handler                      {:mvn/version "4.1.39.Final"}
-  io.netty/netty-resolver-dns                 {:mvn/version "4.1.39.Final"}
-  io.netty/netty-codec-dns                    {:mvn/version "4.1.39.Final"}
-  io.netty/netty-resolver                     {:mvn/version "4.1.39.Final"}
-  io.netty/netty-transport-native-epoll       {:mvn/version "4.1.39.Final"}
-  io.netty/netty-common                       {:mvn/version "4.1.39.Final"}
-  io.netty/netty-transport-native-unix-common {:mvn/version "4.1.39.Final"}
-  io.netty/netty-transport                    {:mvn/version "4.1.39.Final"}
-  io.netty/netty-buffer                       {:mvn/version "4.1.39.Final"}
+  aleph/aleph                                 {:mvn/version "0.4.7-alpha7"}
+  org.clojure/clojure                         {:mvn/version "1.10.2-alpha2"}
+  io.netty/netty-codec-http                   {:mvn/version "4.1.48.Final"}
+  io.netty/netty-codec                        {:mvn/version "4.1.48.Final"}
+  io.netty/netty-handler-proxy                {:mvn/version "4.1.48.Final"}
+  io.netty/netty-codec-socks                  {:mvn/version "4.1.48.Final"}
+  io.netty/netty-handler                      {:mvn/version "4.1.48.Final"}
+  io.netty/netty-resolver-dns                 {:mvn/version "4.1.48.Final"}
+  io.netty/netty-codec-dns                    {:mvn/version "4.1.48.Final"}
+  io.netty/netty-resolver                     {:mvn/version "4.1.48.Final"}
+  io.netty/netty-transport-native-epoll       {:mvn/version "4.1.48.Final"}
+  io.netty/netty-common                       {:mvn/version "4.1.48.Final"}
+  io.netty/netty-transport-native-unix-common {:mvn/version "4.1.48.Final"}
+  io.netty/netty-transport                    {:mvn/version "4.1.48.Final"}
+  io.netty/netty-buffer                       {:mvn/version "4.1.48.Final"}
   ;; io.netty/netty-all  {:mvn/version "4.1.39.Final"}
 
 
@@ -62,7 +62,7 @@
   {:extra-deps
    {clj.native-image/clj.native-image
     {:git/url "https://github.com/ajchemist/clj.native-image.git"
-     :sha     "afcf1298c4ca470f6dba0e65eee495b0e3d339ee"}}
+     :sha     "48a53b2b406363c38f359b3ff24b3953f9b3b59c"}}
    :exec-fn   clj.native-image/build-x
    :exec-args {:aliases [:paths/classes]
                :main    "simple.main"
